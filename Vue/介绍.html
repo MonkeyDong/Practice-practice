@@ -1,0 +1,73 @@
+<!DOCTYPE html> 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test 1</title>
+    <script src="./lib/vue.js"></script>
+  </head>
+  
+<body>
+    <div id="app">
+
+        <h1>{{ msg }}</h1>
+        <input type="text" v-bind:value="msg" style="width: 100%; "><br>
+	   	<span v-bind:title="msg2">
+	    <br>动态绑定的信息（鼠标停留）<br>
+	    biu～
+	  	</span>
+		<p v-if="seen">现在你看到我了</p>
+		<ol>
+	     <li v-for="todo in todos">
+	      {{ todo.text }}
+	     </li>
+	    </ol>
+	    <p>{{ msg3 }}</p>
+  		<button v-on:click="reverseMessage">反转消息</button>
+		<div id="app-6">
+		<p>{{ msg4 }}</p>
+		<input v-model="msg4">
+		</div>
+		<ol>
+	     <todo-item
+	      v-for="item in groceryList"
+	      v-bind:todo="item"
+	      v-bind:key="item.id"
+	     ></todo-item>
+	    </ol>
+
+    </div>
+
+    <script>
+		Vue.component('todo-item', {
+		  props: ['todo'],
+		  template: '<li>{{ todo.text }}</li>'
+		})
+
+        var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'F-word is a no no word.',
+                    msg2: '页面加载于 ' + new Date().toLocaleString(),
+                    seen:true,
+                    todos: [
+				      { text: 'R' },
+				      { text: 'N' },
+				      { text: 'M' },
+				      { text: 'P' }],
+				    msg3:'MMP',
+				    msg4:'RP',
+				        groceryList: [
+					      { id: 0, text: '蔬菜' },
+					      { id: 1, text: '奶酪' },
+					      { id: 2, text: '随便其它什么人吃的东西' }
+					    ],
+				},
+				methods: {
+				    reverseMessage: function () {
+				      this.msg3 = this.msg3.split('').reverse().join('')
+				    }
+				},
+            })
+    </script>
+</body>
+</html>
