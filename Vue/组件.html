@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test 8</title>
+    <script src="./lib/vue.js"></script>
+  </head>
+
+<body>
+
+  <div id="components-demo">
+  <div v-for="n in 5">
+    <button-counter></button-counter>
+  </div>
+
+  <blog-post v-for="post in posts"
+  v-bind:post="post"></blog-post>
+<!--   <blog-post title="My journey with Vue" ids='1'></blog-post>
+  <blog-post title="Blogging with Vue" ids='2'></blog-post>
+  <blog-post title="Why Vue is so fun" ids='3'></blog-post> -->
+  </div>
+
+<div>-----------------------------------------</div>
+
+  <div id="blog-posts-events-demo">
+  <div :style="{ fontSize: postFontSize + 'em' }">
+    <blog-post2
+      v-for="post2 in posts2"
+      v-bind:post2="post2"
+      v-on:enlarge-text="postFontSize += $event"
+    ></blog-post2>
+  </div>
+  </div>
+
+
+
+  <script>
+  Vue.component('button-counter', {
+    data: function () {
+      return {
+        count: 0
+      }
+    },
+    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+  })
+
+  Vue.component('blog-post', {
+    props: ['post'],
+    template: '<h3><h1 style="font-size:10px;">{{ post.title }}</h1><h2 style="font-size:10px;">{{ post.id }}</h2><h4 style="font-size:10px;">{{ post.num }}</h4></h3>'
+  })
+
+  Vue.component('blog-post2', {
+  props: ['post2'],
+  template: `
+    <div>
+      <h3>{{ post2.id }}</h3>
+      <button v-on:click="$emit('enlarge-text', 0.1)">
+        Enlarge text
+      </button>
+      <div>{{ post2.content }}</div>
+    </div>
+  `
+  })
+
+
+  new Vue({ el: '#components-demo',
+        data: {    posts: [
+      { id: 1, title: 'My journey with Vue', num: 'h1' },
+      { id: 2, title: 'Blogging with Vue', num: 'h2' },
+      { id: 3, title: 'Why Vue is so fun', num: 'h3' },
+    ],
+}
+  })
+
+  new Vue({
+    el: '#blog-posts-events-demo',
+    data: {
+      posts2: [
+      { id: 1, content: 'haha1' },
+      { id: 2, content: 'haha2' },
+      ],
+      postFontSize: 1,
+    }
+  })
+
+
+
+  </script>
+</body>
+</html>
+
+

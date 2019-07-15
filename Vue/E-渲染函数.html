@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>E 7</title>
+    <script src="./lib/vue.js"></script>
+  </head>
+
+<body>
+
+  <div id="example-1" class="demo">
+    <input type="text" v-model="message">
+    <p>{{ message | capitalize }}</p>
+  </div>
+  <script>
+    new Vue({
+      el: '#example-1',
+      data: function () {
+        return {
+          message: 'john'
+        }
+      },
+      filters: {
+        capitalize: function (value) {
+          if (!value) return ''
+          value = value.toString()
+          return value.charAt(0).toUpperCase() + value.slice(1)
+        }
+      }
+    })
+  </script>
+
+
+
+</body>
+</html>

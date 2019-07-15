@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>E 5</title>
+    <script src="./lib/vue.js"></script>
+  </head>
+
+<body>
+  <h1>mixins<h1>
+  <script>
+  // var myMixin = {
+  //   created: function () {
+  //     this.hello()
+  //   },
+  //   methods: {
+  //     hello: function () {
+  //       console.log('hello from mixin!')
+  //     }
+  //   }
+  // }
+  //
+  // var Component = Vue.extend({
+  //   mixins: [myMixin]
+  // })
+  //
+  // var component = new Component()
+
+
+  var mixin = {
+    data: function () {
+      return {
+        message: 'hello',
+        foo: 'abc'
+      }
+    }
+  }
+
+  new Vue({
+    mixins: [mixin],
+    data: function () {
+      return {
+        message: 'goodbye',
+        bar: 'def'
+      }
+    },
+    created: function () {
+      console.log(this.$data)
+
+    }
+  })
+
+  </script>
+
+
+
+</body>
+</html>

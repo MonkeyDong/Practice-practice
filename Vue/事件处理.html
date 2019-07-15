@@ -4,34 +4,60 @@
     <meta charset="UTF-8" />
     <title>Test 7</title>
     <script src="./lib/vue.js"></script>
+    <style>
+        .inner{
+            height: 50px;
+            background-color: darkgray;
+        }
+    </style>
   </head>
 
 <body>
-  <div id="example-1">
-    <button v-on:click="counter += 1">Add 1</button>
-    <p>The button above has been clicked {{ counter }} times.</p>
+<div id="app">
+  <div class='inner' @click='div1Handler'>
+      <!-- 用.stop 阻止冒泡-->
+      <input type="button" value="Button1" @click.stop='btnHandler'>
   </div>
-  <div id="example-3">
-    <button v-on:click="say('hi')">Say hi</button>
-    <button v-on:click="say('what')">Say what</button>
-  </div>
+</div>
 
+<div id="example-2">
+  <button v-on:click="greet">Greet</button>
+  <input v-on:keyup.enter="submit" v-model="ids">
+  {{ msg }}
+</div>
 
   <script>
-    var example1 = new Vue({
-      el: '#example-1',
-      data: {
-        counter: 0
-      }
-    })
-    new Vue({
-      el: '#example-3',
-      methods: {
-        say: function (message) {
-          alert(message)
-        }
-      }
-    })
+  var vm = new Vue({
+    el: "#app",
+    data: {},
+    methods: {
+      div1Handler(){
+          console.log('这触发了inner div的点击事件')
+      },
+      btnHandler(){
+          console.log('这触发了按钮点击事件')
+      },
+
+    }})
+
+  var example2 = new Vue({
+    el: '#example-2',
+    data: {
+      name: 'Vue.js',
+      msg: '点击前我是一只青蛙',
+      ids: '',
+    },
+    methods: {
+      greet: function (event) {
+        alert('Hello ' + this.name + '!')
+        if (event) {
+          alert(event.target.tagName);
+        }},
+      submit: function (){
+        this.msg = "我是一只"+this.ids+"了"
+        },
+    
+  }})
   </script>
 
 </body>
